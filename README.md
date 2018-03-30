@@ -26,8 +26,8 @@ Style options:
 ### compile_write/3 & compile_write/4
 #### Compile a file and write result to a file
 ```erlang
-  erlsass:compile ( file, "foo/bar/style.scss", "foo/bar/style.css", "compressed" ).
+  erlsass:compile_write ( file, "foo/bar/style.scss", "foo/bar/style.css", "compressed" ).
   >> ok  
-  erlsass:compile ( file, "foo/bar/style.scss", "foo/bar/style.css").
+  erlsass:compile_write ( file, "foo/bar/style.scss", "foo/bar/style.css").
   >> ok  
 ```
