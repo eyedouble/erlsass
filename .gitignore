@@ -14,5 +14,6 @@ tmp/
 
 # C library
 *.so
+*.dll
 *.a
 *.o
