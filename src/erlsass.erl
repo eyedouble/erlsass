@@ -45,12 +45,9 @@ compile_file(_, _) ->
 init() ->
     % {ok, CurrentDirectory} = file:get_cwd(),
     % Dir = CurrentDirectory ++ "/c_src",
-    Dir = filename:absname( "c_src" ),
+    Dir = filename:absname( filename:dirname(code:which(?MODULE)) ++ "/../c_src" ),
     SharedLib = filename:join(Dir, ?LIBNAME),
-    ?PRINT ( SharedLib ),
-    X = erlang:load_nif(SharedLib, 0),
-    ?PRINT(X),
-    X.
+    erlang:load_nif(SharedLib, 0).
 
     % SoName = case code:priv_dir(?APPNAME) of
     %     {error, bad_name} ->
