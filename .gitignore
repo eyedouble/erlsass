@@ -1,4 +1,5 @@
 # Standard Erlang excludesX
+_build/
 ebin/
 !ebin/*.appup
 .eunit/
