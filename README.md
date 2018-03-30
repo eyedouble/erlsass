@@ -4,14 +4,14 @@ Compile Sass/Scss implemented as Erlang NIF using libsass.
 ## API
 
 ### compile/2
-#### Compile a file and result as string
+#### Compile a file and return result as string
 Default compilation style is compressed see compile/4 for options.
 ```erlang
   erlsass:compile ( file, "foo/bar/style.scss" ).
   >> {ok, "body{color:#000;}"}
 ```
 ### compile/3
-#### Compile a file and result as string and specify comilation style
+#### Compile a file and return result as string and specify comilation style
 Style options:
 
 - Compact
