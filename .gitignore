@@ -11,6 +11,7 @@ index.tmp
 prof/
 tmp/
 *.log
+*.lock
 
 # C library
 *.so
