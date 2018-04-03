@@ -43,24 +43,18 @@ compile_file(_, _) ->
     not_loaded(?LINE).
 
 init() ->
-    {ok, CurrentDirectory} = file:get_cwd(),
-    Dir = CurrentDirectory ++ "/c_src",
-    % Dir = filename:absname( filename:dirname(code:which(?MODULE)) ++ "/../c_src" ),
-    SharedLib = filename:join(Dir, ?LIBNAME),
+    PrivDir = case code:priv_dir(?APPNAME) of
+        {error, bad_name} ->
+            case filelib:is_dir(filename:join(["..", priv])) of
+                true -> filename:nativename( filename:absname( filename:join(["..", priv]) ) );
+                _ -> filename:nativename( filename:absname( filename:join([priv]) ) )
+            end;
+        Dir -> filename:nativename( filename:absname( filename:join(Dir) ) )
+    end,
+    Path = os:getenv("path"),
+    os:putenv("path", Path ++ PrivDir ++ ";"),  
+    SharedLib = filename:join(PrivDir, ?LIBNAME),     
     erlang:load_nif(SharedLib, 0).
-
-    % SoName = case code:priv_dir(?APPNAME) of
-    %     {error, bad_name} ->
-    %         case filelib:is_dir(filename:join(["..", priv])) of
-    %             true ->
-    %                 filename:join(["..", priv, ?LIBNAME]);
-    %             _ ->
-    %                 filename:join([priv, ?LIBNAME])
-    %         end;
-    %     Dir ->
-    %         filename:join(Dir, ?LIBNAME)
-    % end,
-    % erlang:load_nif(SoName, 0).
 
 not_loaded(Line) ->
     exit({not_loaded, [{module, ?MODULE}, {line, Line}]}).

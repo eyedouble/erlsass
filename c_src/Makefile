@@ -34,11 +34,13 @@ ifeq ($(OSNAME), unix)
 	CFLAGS ?= -O3 -std=c99 -finline-functions -Wall -Wmissing-prototypes
 	CXXFLAGS ?= -O3 -finline-functions -Wall
 	LIBNAME := erlsass_nif.so
+	COPY := cp libsass/lib/libsass.so ../priv
 else ifeq ($(OSNAME), win32)
 	CC ?= gcc
 	CFLAGS ?= -O3 -std=c99 -finline-functions -Wall -Wmissing-prototypes
 	CXXFLAGS ?= -O3 -finline-functions -Wall
 	LIBNAME := erlsass_nif.dll	
+	COPY := copy ".\libsass\lib\libsass.dll" ".\..\priv"
 endif
 
 CFLAGS += -I "$(ERTS_INCLUDE_DIR)" -I "$(ERL_INTERFACE_INCLUDE_DIR)" -I "libsass/include" -I "libsass"
@@ -53,7 +55,8 @@ LDFLAGS += -shared
 
 
 all:
-	$(shell gcc -o $(LIBNAME) -fpic -shared erlsass_nif.cpp $(CXXFLAGS))
+	$(shell gcc -o ../priv/$(LIBNAME) -fpic -shared erlsass_nif.cpp $(CXXFLAGS))
+	$(COPY)
 
 # # Verbosity.
 
