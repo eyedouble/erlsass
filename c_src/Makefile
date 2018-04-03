@@ -43,6 +43,13 @@ else ifeq ($(OSNAME), win32)
 	COPY := copy ".\libsass\lib\libsass.dll" ".\..\priv"
 endif
 
+#
+# REFACTOR ! COME UP WITH ONE ORGANISED SYSTEM FOR BOTH WIN/UNIX
+# PRIV DIR WITH .SO/.DLL FILES. 
+# COPYING OF DEPS SHOULD HAPPEN BEFORE COMPILE OF MAIN LIB FOR 
+# DEP LINKING ON UNIX. ON WIN TAKE PATH VARIABLE APPROACH
+#
+
 CFLAGS += -I "$(ERTS_INCLUDE_DIR)" -I "$(ERL_INTERFACE_INCLUDE_DIR)" -I "libsass/include" -I "libsass"
 # WINCXXFLAGS += -L "libsass/lib" -lsass -I "$(ERTS_INCLUDE_DIR)" -I "$(ERL_INTERFACE_INCLUDE_DIR)"  -I "libsass/include" 
 CXXFLAGS += -I "$(ERTS_INCLUDE_DIR)" -I "$(ERL_INTERFACE_INCLUDE_DIR)"  -I "libsass/include" $(CURDIR)/libsass/lib/libsass.so
