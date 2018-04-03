@@ -1,50 +1,48 @@
-# Based on c_src.mk from erlang.mk by Loic Hoguin <essen@ninenines.eu>
+OSNAME := $(shell erl -noshell -s init stop -eval "{Osfamily, Osname} = os:type(), io:format(\"~ts\", [Osfamily]).")
 
-CURDIR := $(shell pwd)
+ifeq ($(OSNAME), win32)	
+	CURDIR := $(shell echo %cd%)
+else
+	CURDIR := $(shell pwd)
+endif
+
 BASEDIR := $(abspath $(CURDIR)/..)
-
 PROJECT ?= $(notdir $(BASEDIR))
 PROJECT := $(strip $(PROJECT))
-# WIN_OR_UNIX := $(shell erl -noshell -s init stop -eval "{Osfamily, Osname} = os:type(), io:format(\"~ts\", [Osfamily]).")
 
-
-# ifeq ($(WIN_OR_UNIX), win32)
-# 	$(info $$z is .${WIN_OR_UNIX}.)
-# endif
 
 ERTS_INCLUDE_DIR ?= $(shell erl -noshell -s init stop -eval "io:format(\"~ts/erts-~ts/include\", [code:root_dir(), erlang:system_info(version)]).")
 ERL_INTERFACE_INCLUDE_DIR ?= $(shell erl -noshell -s init stop -eval "io:format(\"~ts\", [code:lib_dir(erl_interface, include)]).")
 ERL_INTERFACE_LIB_DIR ?= $(shell erl -noshell -s init stop -eval "io:format(\"~ts\", [code:lib_dir(erl_interface, lib)]).")
 
-
+$(info .${OSNAME}.)
 $(info .${ERTS_INCLUDE_DIR}.)
 $(info .${ERL_INTERFACE_INCLUDE_DIR}.)
-$(info .${C_SRC_DIR}.)
+$(info .${ERL_INTERFACE_LIB_DIR}.)
 
-C_SRC_DIR = $(CURDIR)
-C_SRC_OUTPUT ?= $(CURDIR)/../priv/$(PROJECT).so
+# $(info .${C_SRC_DIR}.)
+
+# C_SRC_DIR = $(CURDIR)
+# C_SRC_OUTPUT ?= $(CURDIR)/../priv/$(PROJECT).so
 
 
 # System type and C compiler/flags.
 
-UNAME_SYS := $(shell uname -s)
-ifeq ($(UNAME_SYS), Darwin)
-	CC ?= cc
-	CFLAGS ?= -O3 -std=c99 -arch x86_64 -finline-functions -Wall -Wmissing-prototypes
-	CXXFLAGS ?= -O3 -arch x86_64 -finline-functions -Wall
-	LDFLAGS ?= -arch x86_64 -flat_namespace -undefined suppress
-else ifeq ($(UNAME_SYS), FreeBSD)
-	CC ?= cc
-	CFLAGS ?= -O3 -std=c99 -finline-functions -Wall -Wmissing-prototypes
-	CXXFLAGS ?= -O3 -finline-functions -Wall
-else ifeq ($(UNAME_SYS), Linux)
+#UNAME_SYS := $(shell uname -s)
+ifeq ($(OSNAME), unix)
 	CC ?= gcc
 	CFLAGS ?= -O3 -std=c99 -finline-functions -Wall -Wmissing-prototypes
 	CXXFLAGS ?= -O3 -finline-functions -Wall
+	LIBNAME := erlsass_nif.so
+else ifeq ($(OSNAME), win32)
+	CC ?= gcc
+	CFLAGS ?= -O3 -std=c99 -finline-functions -Wall -Wmissing-prototypes
+	CXXFLAGS ?= -O3 -finline-functions -Wall
+	LIBNAME := erlsass_nif.dll	
 endif
 
 CFLAGS += -I "$(ERTS_INCLUDE_DIR)" -I "$(ERL_INTERFACE_INCLUDE_DIR)" -I "libsass/include" -I "libsass"
-CXXFLAGS += -I "$(ERTS_INCLUDE_DIR)" -I "$(ERL_INTERFACE_INCLUDE_DIR)"  -I "libsass/include" $(CURDIR)/libsass/lib/libsass.so
+CXXFLAGS += -L "libsass/lib" -lsass -I "$(ERTS_INCLUDE_DIR)" -I "$(ERL_INTERFACE_INCLUDE_DIR)"  -I "libsass/include" 
 # CXXFLAGS += -I "$(ERTS_INCLUDE_DIR)" -I "$(ERL_INTERFACE_INCLUDE_DIR)" -I "libsass/include" "libsass/lib/libsass.a" -lsass
 
 LDLIBS += -L "$(ERL_INTERFACE_LIB_DIR)" -lerl_interface -lei
@@ -55,8 +53,7 @@ LDFLAGS += -shared
 
 
 all:
-	# unix / windows with GWmin
-	$(shell gcc -o erlsass_nif.so -fpic -shared erlsass_nif.cpp $(CXXFLAGS))
+	$(shell gcc -o $(LIBNAME) -fpic -shared erlsass_nif.cpp $(CXXFLAGS))
 
 # # Verbosity.
 

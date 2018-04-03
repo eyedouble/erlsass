@@ -1,0 +1,1 @@
+erlsass:compile(file, "kak.scss").

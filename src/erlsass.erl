@@ -43,9 +43,9 @@ compile_file(_, _) ->
     not_loaded(?LINE).
 
 init() ->
-    % {ok, CurrentDirectory} = file:get_cwd(),
-    % Dir = CurrentDirectory ++ "/c_src",
-    Dir = filename:absname( filename:dirname(code:which(?MODULE)) ++ "/../c_src" ),
+    {ok, CurrentDirectory} = file:get_cwd(),
+    Dir = CurrentDirectory ++ "/c_src",
+    % Dir = filename:absname( filename:dirname(code:which(?MODULE)) ++ "/../c_src" ),
     SharedLib = filename:join(Dir, ?LIBNAME),
     erlang:load_nif(SharedLib, 0).
 
