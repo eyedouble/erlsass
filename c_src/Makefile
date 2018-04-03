@@ -44,8 +44,8 @@ else ifeq ($(OSNAME), win32)
 endif
 
 CFLAGS += -I "$(ERTS_INCLUDE_DIR)" -I "$(ERL_INTERFACE_INCLUDE_DIR)" -I "libsass/include" -I "libsass"
-CXXFLAGS += -L "libsass/lib" -lsass -I "$(ERTS_INCLUDE_DIR)" -I "$(ERL_INTERFACE_INCLUDE_DIR)"  -I "libsass/include" 
-# CXXFLAGS += -I "$(ERTS_INCLUDE_DIR)" -I "$(ERL_INTERFACE_INCLUDE_DIR)" -I "libsass/include" "libsass/lib/libsass.a" -lsass
+# WINCXXFLAGS += -L "libsass/lib" -lsass -I "$(ERTS_INCLUDE_DIR)" -I "$(ERL_INTERFACE_INCLUDE_DIR)"  -I "libsass/include" 
+CXXFLAGS += -I "$(ERTS_INCLUDE_DIR)" -I "$(ERL_INTERFACE_INCLUDE_DIR)"  -I "libsass/include" $(CURDIR)/libsass/lib/libsass.so
 
 LDLIBS += -L "$(ERL_INTERFACE_LIB_DIR)" -lerl_interface -lei
 LDFLAGS += -shared
