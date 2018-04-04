@@ -8,7 +8,7 @@
    ]},
   {env,[]},
   {modules, []},
-  {maintainers, ["Irsan van Wel"]},
+  {maintainers, ["Irsan van Wel", "eyedouble"]},
   {licenses, ["MIT"]},
   {links, [
     {"Github", "https://github.com/eyedouble/erlsass"}
