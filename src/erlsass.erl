@@ -43,6 +43,7 @@ compile_file(_, _) ->
     not_loaded(?LINE).
 
 init() ->
+    ?PRINT ( code:priv_dir(?APPNAME) ),
     PrivDir = case code:priv_dir(?APPNAME) of
         {error, bad_name} ->
             case filelib:is_dir(filename:join(["..", priv])) of
@@ -51,6 +52,7 @@ init() ->
             end;
         Dir -> filename:nativename( filename:absname( Dir ) )
     end,
+    
 
     case os:type() of
         {win32, _Osname} -> 
