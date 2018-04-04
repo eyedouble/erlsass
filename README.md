@@ -50,7 +50,7 @@ Style options:
 To build erlsass on Windows 64bit you need to provide GNU gcc and g++ compilers.
 Follow the steps below:
 
-1. Download  [MinGW64 for windows7 64bit](http://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/4.9.2/threads-win32/seh/x86_64-4.9.2-release-win32-seh-rt_v3-rev0.7z/download) , and unzip to `C:\mingw64`.
+1. Download  [MinGW64 for Windows 64bit](http://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/4.9.2/threads-win32/seh/x86_64-4.9.2-release-win32-seh-rt_v3-rev0.7z/download) , and unzip to `C:\mingw64`.
 
 2. Add `C:\mingw64` to your Path environment variable. ( On Windows 10: Open the Start menu, type `environment` in the results click on `Edit environment variables for your account`. Select the `Path` entry and click on `Edit`. )
 
