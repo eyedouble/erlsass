@@ -1,5 +1,6 @@
 # erlsass
-Compile Sass/Scss implemented as Erlang NIF using libsass.
+Compile Sass/Scss implemented as Erlang NIF using **libsass 3.5.1**.
+
 
 ## Known to work on:
 - Ubuntu 17.10
