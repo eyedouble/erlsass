@@ -3,7 +3,18 @@ Compile Sass/Scss implemented as Erlang NIF using libsass.
 
 ## Known to work on:
 - Ubuntu 17.10
+- Ubuntu 16.04
+- Fedora 27
 - Windows 10 x64 (Compile via MinGW gcc)
+
+## Prerequisites
+- gcc
+- g++
+
+*Please note on fedora and possibly other linux distro's that use yum as package manger the g++ compiler is called gcc-c++*
+
+## Install
+Simply add `erlsass` to the `rebar.config` file of your application and add to your `application.src` file.
 
 ## API
 
