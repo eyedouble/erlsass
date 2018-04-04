@@ -51,8 +51,13 @@ init() ->
             end;
         Dir -> filename:nativename( filename:absname( filename:join(Dir) ) )
     end,
-    Path = os:getenv("path"),
-    os:putenv("path", Path ++ PrivDir ++ ";"),  
+
+    case os:type() of
+        {win32, _Osname} -> 
+            Path = os:getenv("PATH"),
+            os:putenv("PATH", Path ++ PrivDir ++ ";")
+    end,
+    
     SharedLib = filename:join(PrivDir, ?LIBNAME),     
     erlang:load_nif(SharedLib, 0).
 
