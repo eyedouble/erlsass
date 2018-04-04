@@ -10,7 +10,7 @@
 
 -include("dev.hrl").
 
--define(APPNAME, erlsass_nif).
+-define(APPNAME, erlsass).
 -define(LIBNAME, erlsass_nif).
 
 compile ( file, File ) ->
@@ -49,7 +49,7 @@ init() ->
                 true -> filename:nativename( filename:absname( filename:join(["..", priv]) ) );
                 _ -> filename:nativename( filename:absname( filename:join([priv]) ) )
             end;
-        Dir -> filename:nativename( filename:absname( filename:join(Dir) ) )
+        Dir -> filename:nativename( filename:absname( Dir ) )
     end,
 
     case os:type() of
