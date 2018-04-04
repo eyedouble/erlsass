@@ -1,6 +1,6 @@
 {application, erlsass,
- [{description, "An OTP library"},
-  {vsn, "0.1.0"},
+ [{description, "Compile Sass/Scss implemented as Erlang NIF using libsass."},
+  {vsn, "1.0.0"},
   {registered, []},
   {applications,
    [kernel,
@@ -8,7 +8,6 @@
    ]},
   {env,[]},
   {modules, []},
-
   {maintainers, []},
   {licenses, ["Apache 2.0"]},
   {links, []}
