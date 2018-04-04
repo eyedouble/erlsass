@@ -11,7 +11,7 @@
   {maintainers, ["Irsan van Wel", "eyedouble"]},
   {licenses, ["MIT"]},
   {links, [
-    {"Github", "https://github.com/eyedouble/erlsass"}
+    {"Github", "https://github.com/eyedouble/erlsass"},
     {"eyedouble", "https://eyedouble.nl"}
   ]}
  ]}.
