@@ -56,8 +56,8 @@ init() ->
         {win32, _Osname} -> 
             Path = os:getenv("PATH"),
             os:putenv("PATH", Path ++ PrivDir ++ ";")
-    end,
-    
+    end,    
+
     SharedLib = filename:join(PrivDir, ?LIBNAME),     
     erlang:load_nif(SharedLib, 0).
 

@@ -1,9 +1,9 @@
 # erlsass
 Compile Sass/Scss implemented as Erlang NIF using libsass.
 
-## Confirmed to work on:
+## Known to work on:
 - Ubuntu 17.10
-- 
+- Windows 10 x64 (Compile via MinGW gcc)
 
 ## API
 
