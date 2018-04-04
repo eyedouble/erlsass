@@ -8,7 +8,10 @@
    ]},
   {env,[]},
   {modules, []},
-  {maintainers, []},
-  {licenses, ["Apache 2.0"]},
-  {links, []}
+  {maintainers, ["Irsan van Wel"]},
+  {licenses, ["MIT"]},
+  {links, [
+    {"Github", "https://github.com/eyedouble/erlsass"}
+    {"eyedouble", "https://eyedouble.nl"}
+  ]}
  ]}.
