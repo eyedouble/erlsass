@@ -55,7 +55,8 @@ init() ->
     case os:type() of
         {win32, _Osname} -> 
             Path = os:getenv("PATH"),
-            os:putenv("PATH", Path ++ PrivDir ++ ";")
+            os:putenv("PATH", Path ++ PrivDir ++ ";");
+        _True -> ok
     end,    
 
     SharedLib = filename:join(PrivDir, ?LIBNAME),     

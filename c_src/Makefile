@@ -32,6 +32,7 @@ else
 endif
 
 BASEDIR := $(abspath $(CURDIR)/..)
+PRIVDIR := $(abspath $(CURDIR)/../priv)
 PROJECT ?= $(notdir $(BASEDIR))
 PROJECT := $(strip $(PROJECT))
 
@@ -67,17 +68,17 @@ CXXFLAGS ?= -O3 -finline-functions -Wall
 #
 #	Compilation
 #
-CFLAGS += -I "$(ERTS_INCLUDE_DIR)" -I "$(ERL_INTERFACE_INCLUDE_DIR)" -I "libsass/include" -I "libsass"
-CXXFLAGS += -I "$(ERTS_INCLUDE_DIR)" -I "$(ERL_INTERFACE_INCLUDE_DIR)"  -I "libsass/include" "../priv/libsass.dll"
+CFLAGS += -I "$(ERTS_INCLUDE_DIR)" -I "$(ERL_INTERFACE_INCLUDE_DIR)"
+CXXFLAGS += -I "$(ERTS_INCLUDE_DIR)" -I "$(ERL_INTERFACE_INCLUDE_DIR)"  -I "libsass/include" "$(PRIVDIR)/libsass$(SLEXT)"
 
 
 LDLIBS += -L "$(ERL_INTERFACE_LIB_DIR)" -lerl_interface -lei
 LDFLAGS += -shared
 
-# $(info ${OS})
-# $(info ${OSNAME})
-# $(info ${CURDIR})
-# $(info ${PROJECT})
+$(info ${OS})
+$(info ${OSNAME})
+$(info ${CURDIR})
+$(info ${PRIVDIR})
 # $(info ${ERTS_INCLUDE_DIR})
 # $(info ${ERL_INTERFACE_INCLUDE_DIR})
 # $(info ${ERL_INTERFACE_LIB_DIR})
