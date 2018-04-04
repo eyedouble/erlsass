@@ -31,19 +31,11 @@ compile_write ( file, File, OutputFile, Style ) ->
         {ok, Output} -> file:write_file ( filename:absname ( OutputFile ), Output );
         E -> E
     end.
-% do ( ) ->
-%     do ( file, "src/test.scss" ).
-    
-% do ( file, Filename ) -> 
-%     X = ,
-%     ?PRINT ( X ),
-%     compile_file ( self(), X ).
 
 compile_file(_, _) ->
     not_loaded(?LINE).
 
 init() ->
-    ?PRINT ( code:priv_dir(?APPNAME) ),
     PrivDir = case code:priv_dir(?APPNAME) of
         {error, bad_name} ->
             case filelib:is_dir(filename:join(["..", priv])) of
