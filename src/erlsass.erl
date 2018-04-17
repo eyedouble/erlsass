@@ -49,7 +49,11 @@ init() ->
     case os:type() of
         {win32, _Osname} -> 
             Path = os:getenv("PATH"),
-            os:putenv("PATH", Path ++ PrivDir ++ ";");
+            Path2 = case string:right(Path, 1) of
+                ";" -> Path;
+                _True -> ";" ++ Path
+            end,
+            os:putenv("PATH", Path2 ++ PrivDir ++ ";");
         _True -> ok
     end,    
 
