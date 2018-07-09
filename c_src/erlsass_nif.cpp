@@ -34,7 +34,7 @@ static ERL_NIF_TERM
 version(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
     ERL_NIF_TERM result;  
-    result = mk_ok(env, "Erlsass:1.0.1;Libsass:3.5.1;");
+    result = mk_ok(env, "Erlsass:1.1.0;Libsass:3.5.1;");
     return result;
 }
 
