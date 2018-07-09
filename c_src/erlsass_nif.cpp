@@ -31,6 +31,14 @@ mk_ok(ErlNifEnv* env, const char* mesg)
 }
 
 static ERL_NIF_TERM
+version(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
+{
+    ERL_NIF_TERM result;  
+    result = mk_ok(env, "Erlsass:1.0.1;Libsass:3.5.1;");
+    return result;
+}
+
+static ERL_NIF_TERM
 compile_file(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
     ErlNifEnv* msg_env;
@@ -127,8 +135,42 @@ compile_file(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
     return result;
 }
 
+// Return value of 0 indicates success.
+// Docs: http://erlang.org/doc/man/erl_nif.html#load
+
+static int
+load(ErlNifEnv* env, void** priv, ERL_NIF_TERM load_info)
+{
+    return 0;
+}
+
+// Called when changing versions of the C code for a module's NIF
+// implementation if I read the docs correctly.
+//
+// Return value of 0 indicates success.
+// Docs: http://erlang.org/doc/man/erl_nif.html#upgrade
+
+static int
+upgrade(ErlNifEnv* env, void** priv, void** old_priv, ERL_NIF_TERM load_info)
+{
+    return 0;
+}
+
+// Called when the library is unloaded. Not called after a reload
+// executes.
+//
+// No return value
+// Docs: http://erlang.org/doc/man/erl_nif.html#load
+
+static void
+unload(ErlNifEnv* env, void* priv)
+{
+    return;
+}
+
 static ErlNifFunc nif_funcs[] = {
-    {"compile_file", 2, compile_file}
+    {"version", 0, version}
+    ,{"compile_file", 2, compile_file}
 };
 
-ERL_NIF_INIT(erlsass, nif_funcs, NULL, NULL, NULL, NULL);
+ERL_NIF_INIT(erlsass, nif_funcs, &load, NULL, &upgrade, &unload);

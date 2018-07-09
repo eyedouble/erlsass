@@ -46,6 +46,12 @@ Style options:
   erlsass:compile_write ( file, "foo/bar/style.scss", "foo/bar/style.css").
   >> ok  
 ```
+### version/0
+#### Retrieve version info
+```erlang
+  erlsass:version().
+  >> {ok, "Erlsass:x.x.x;Libsass:x.x.x"} 
+```
 
 ## Usage on Windows 
 To build erlsass on Windows 64bit you need to provide GNU gcc and g++ compilers.

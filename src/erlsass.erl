@@ -1,6 +1,7 @@
 -module(erlsass).
 -export([
-    compile/2    
+    version/0
+    ,compile/2    
     ,compile/3 
     ,compile_write/3   
     ,compile_write/4
@@ -12,6 +13,9 @@
 
 -define(APPNAME, erlsass).
 -define(LIBNAME, erlsass_nif).
+
+version ( ) -> 
+    not_loaded(?LINE).
 
 compile ( file, File ) ->
     compile ( file, File, "compressed" ).
@@ -43,15 +47,14 @@ init() ->
                 _ -> filename:nativename( filename:absname( filename:join([priv]) ) )
             end;
         Dir -> filename:nativename( filename:absname( Dir ) )
-    end,
-    
+    end,    
 
     case os:type() of
         {win32, _Osname} -> 
             Path = os:getenv("PATH"),
             Path2 = case string:right(Path, 1) of
                 ";" -> Path;
-                _True -> ";" ++ Path
+                _True -> Path ++ ";"
             end,
             os:putenv("PATH", Path2 ++ PrivDir ++ ";");
         _True -> ok
