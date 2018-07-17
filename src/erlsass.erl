@@ -49,18 +49,10 @@ init() ->
         Dir -> filename:nativename( filename:absname( Dir ) )
     end,    
 
-    case os:type() of
-        {win32, _Osname} -> 
-            Path = os:getenv("PATH"),
-            Path2 = case string:right(Path, 1) of
-                ";" -> Path;
-                _True -> Path ++ ";"
-            end,
-            os:putenv("PATH", Path2 ++ PrivDir ++ ";");
-        _True -> ok
-    end,    
-
-    SharedLib = filename:join(PrivDir, ?LIBNAME),     
+    SharedLib = case os:type() of
+        {win32, _Osname} -> PrivDir ++ "\\" ++ atom_to_list ( ?LIBNAME );           
+        _True -> filename:join(PrivDir, ?LIBNAME)
+    end,      
     erlang:load_nif(SharedLib, 0).
 
 not_loaded(Line) ->
